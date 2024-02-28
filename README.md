@@ -1,1 +1,1 @@
-![image](https://github.com/izaiasmorais/route-handlers/assets/53953937/e642493f-d021-4f7b-bc4d-562ac68c2ce1)
+![image](https://github.com/izaiasmorais/route-handlers/assets/53953937/0eab7a72-8b06-47ed-86d8-77bbe01fbad0)
