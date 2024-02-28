@@ -1,7 +1,12 @@
+import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
-	const body = await request.json();
+export async function GET(request: Request) {
+	if (request.method !== "GET") {
+		return NextResponse.json({ error: "Invalid method" }, { status: 405 });
+	}
 
-	return NextResponse.json({ ...body });
+	const data = await prisma.user.findMany();
+
+	return NextResponse.json(data);
 }
