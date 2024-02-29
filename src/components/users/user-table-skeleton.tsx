@@ -6,16 +6,16 @@ export function UserTableSkeleton() {
 		return (
 			<TableRow key={index}>
 				<TableCell>
-					<Skeleton className="h-4 w-[300px]" />
+					<Skeleton className="h-5 w-[300px]" />
 				</TableCell>
 				<TableCell>
-					<Skeleton className="h-4 w-[150px]" />
+					<Skeleton className="h-5 w-[150px]" />
 				</TableCell>
 				<TableCell>
-					<Skeleton className="h-4 w-[200px]" />
+					<Skeleton className="h-5 w-[200px]" />
 				</TableCell>
 				<TableCell>
-					<Skeleton className="h-4 w-[100px]" />
+					<Skeleton className="h-5 w-[100px]" />
 				</TableCell>
 			</TableRow>
 		);

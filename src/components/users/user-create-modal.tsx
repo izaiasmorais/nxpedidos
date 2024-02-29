@@ -1,5 +1,6 @@
 "use client";
-import { SignInForm, createUser } from "@/api/create-user";
+import { CreateUserBody } from "@/@types/user";
+import { createUser } from "@/api/create-user";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -24,7 +25,7 @@ export function CreateUserModal() {
 		register,
 		handleSubmit,
 		formState: { isSubmitting },
-	} = useForm<SignInForm>({
+	} = useForm<CreateUserBody>({
 		defaultValues: {
 			name: "",
 			email: "",
@@ -41,7 +42,7 @@ export function CreateUserModal() {
 		onError: () => toast.error("Erro ao criar usuário!"),
 	});
 
-	function handleCreateUser(data: SignInForm) {
+	function handleCreateUser(data: CreateUserBody) {
 		createUserFn(data);
 	}
 

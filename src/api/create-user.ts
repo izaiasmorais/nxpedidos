@@ -1,16 +1,9 @@
-import { z } from "zod";
 import { api } from "@/lib/axios";
+import { CreateUserBody } from "@/@types/user";
 
-const signInForm = z.object({
-	name: z.string(),
-	email: z.string().email(),
-});
-
-export type SignInForm = z.infer<typeof signInForm>;
-
-export async function createUser(data: SignInForm) {
+export async function createUser(data: CreateUserBody) {
 	try {
-		await api.post("/user", {
+		await api.post("/users", {
 			name: data.name,
 			email: data.email,
 		});
