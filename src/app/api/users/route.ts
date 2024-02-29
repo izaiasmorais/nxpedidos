@@ -1,32 +1,25 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 export async function GET(request: Request) {
 	if (request.method !== "GET") {
 		return NextResponse.json({ error: "Invalid method" }, { status: 405 });
 	}
 
-	const getUsersBody = z.object({
-		name: z.string().optional(),
-		email: z.string(),
-		created_at: z.date(),
-	});
-
-	// const { name, email, created_at } = getUsersBody.parse(request.body);
+	const url = new URL(request.url);
+	const searchParams = new URLSearchParams(url.search);
+	const name = searchParams.get("name");
+	const email = searchParams.get("email");
 
 	const data = await prisma.user.findMany({
-		// where: {
-		// 	name: {
-		// 		contains: name,
-		// 	},
-		// 	email: {
-		// 		contains: email,
-		// 	},
-		// 	created_at: {
-		// 		lte: created_at,
-		// 	},
-		// },
+		where: {
+			name: {
+				contains: name ?? "",
+			},
+			email: {
+				contains: email ?? "",
+			},
+		},
 	});
 
 	return NextResponse.json(data);

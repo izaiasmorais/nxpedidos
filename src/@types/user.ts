@@ -9,10 +9,9 @@ export interface GetUserResponse {
 	users: User[];
 }
 
-export interface GetUserQuery {
-	name: string;
-	email: string;
-	created_at: string;
+export interface GetUsersQuery {
+	name: string | null;
+	email: string | null;
 }
 
 export interface CreateUserBody {

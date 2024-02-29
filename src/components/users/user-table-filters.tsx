@@ -20,11 +20,14 @@ export function UserTableFilters() {
 	const pathname = usePathname();
 	const router = useRouter();
 
-	const { register, handleSubmit, control, reset } = useForm<UserFilterSchema>({
+	const name = searchParams.get("name");
+	const email = searchParams.get("email");
+
+	const { register, handleSubmit, reset } = useForm<UserFilterSchema>({
 		resolver: zodResolver(userFilterSchema),
 		defaultValues: {
-			name: "",
-			email: "",
+			name: name ?? "",
+			email: email ?? "",
 		},
 	});
 
@@ -80,7 +83,7 @@ export function UserTableFilters() {
 			/>
 			<DatePicker />
 
-			<Button type="submit" className="px-8">
+			<Button type="submit" variant="secondary" className="px-8">
 				Filtar
 			</Button>
 

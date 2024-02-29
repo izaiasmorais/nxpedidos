@@ -11,11 +11,17 @@ import { getUsers } from "@/api/get-users";
 import { useQuery } from "@tanstack/react-query";
 import { UserTableSkeleton } from "./user-table-skeleton";
 import { format } from "date-fns";
+import { useSearchParams } from "next/navigation";
 
 export function UserTable() {
+	const searchParams = useSearchParams();
+
+	const name = searchParams.get("name");
+	const email = searchParams.get("email");
+
 	const { data: result, isLoading: isLoadingUsers } = useQuery({
-		queryKey: ["users"],
-		queryFn: getUsers,
+		queryKey: ["users", name, email],
+		queryFn: () => getUsers({ name, email }),
 	});
 
 	return (
