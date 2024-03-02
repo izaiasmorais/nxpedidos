@@ -81,6 +81,7 @@ export function UserTableFilters() {
 				placeholder="Email do usuário"
 				{...register("email")}
 			/>
+			
 			<DatePicker />
 
 			<Button type="submit" variant="secondary" className="px-8">
@@ -95,8 +96,6 @@ export function UserTableFilters() {
 			>
 				Limpar
 			</Button>
-
-			<CreateUserModal />
 		</form>
 	);
 }
