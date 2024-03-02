@@ -6,21 +6,7 @@ export async function GET(request: Request) {
 		return NextResponse.json({ error: "Invalid method" }, { status: 405 });
 	}
 
-	const url = new URL(request.url);
-	const searchParams = new URLSearchParams(url.search);
-	const name = searchParams.get("name");
-	const email = searchParams.get("email");
-
-	const data = await prisma.user.findMany({
-		where: {
-			name: {
-				contains: name ?? "",
-			},
-			email: {
-				contains: email ?? "",
-			},
-		},
-	});
+	const data = await prisma.user.findMany();
 
 	return NextResponse.json(data);
 }

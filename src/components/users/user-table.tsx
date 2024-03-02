@@ -21,7 +21,7 @@ export function UserTable() {
 
 	const { data: result, isLoading: isLoadingUsers } = useQuery({
 		queryKey: ["users", name, email],
-		queryFn: () => getUsers({ name, email }),
+		queryFn: getUsers,
 	});
 
 	return (

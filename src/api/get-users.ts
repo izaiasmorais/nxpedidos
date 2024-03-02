@@ -1,14 +1,9 @@
-import { GetUsersQuery, User } from "@/@types/user";
+import { User } from "@/@types/user";
 import { api } from "@/lib/axios";
 
-export async function getUsers({ name, email }: GetUsersQuery) {
+export async function getUsers() {
 	try {
-		const response = await api.get<User[]>("/users", {
-			params: {
-				name,
-				email,
-			},
-		});
+		const response = await api.get<User[]>("/users");
 
 		return response.data;
 	} catch (error) {
