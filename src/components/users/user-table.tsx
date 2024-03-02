@@ -37,7 +37,7 @@ export function UserTable() {
 				</TableHeader>
 
 				<TableBody>
-					{result &&
+					{/* {result &&
 						result.map((user) => {
 							return (
 								<TableRow key={user.id}>
@@ -49,7 +49,7 @@ export function UserTable() {
 									</TableCell>
 								</TableRow>
 							);
-						})}
+						})} */}
 
 					{isLoadingUsers && <UserTableSkeleton />}
 				</TableBody>

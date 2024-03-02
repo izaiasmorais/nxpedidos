@@ -1,16 +1,20 @@
 "use client";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { DatePicker } from "../ui/date-picker";
 import { Input } from "../ui/input";
 import { CreateUserModal } from "./user-create-modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { z } from "zod";
 
 const userFilterSchema = z.object({
 	name: z.string().optional(),
 	email: z.string().optional(),
+	createdAt: z.date().optional(),
 });
 
 type UserFilterSchema = z.infer<typeof userFilterSchema>;
@@ -22,16 +26,18 @@ export function UserTableFilters() {
 
 	const name = searchParams.get("name");
 	const email = searchParams.get("email");
+	const createdAt = searchParams.get("createdAt");
 
-	const { register, handleSubmit, reset } = useForm<UserFilterSchema>({
+	const { register, handleSubmit, reset, control } = useForm<UserFilterSchema>({
 		resolver: zodResolver(userFilterSchema),
 		defaultValues: {
 			name: name ?? "",
 			email: email ?? "",
+			createdAt: new Date(createdAt ?? new Date()) ?? "",
 		},
 	});
 
-	function handleFilter({ name, email }: UserFilterSchema) {
+	function handleFilter({ name, email, createdAt }: UserFilterSchema) {
 		const state = new URLSearchParams(Array.from(searchParams.entries()));
 
 		if (name) {
@@ -46,6 +52,12 @@ export function UserTableFilters() {
 			state.delete("email");
 		}
 
+		if (createdAt) {
+			state.set("createdAt", format(createdAt, "yyyy-MM-dd", { locale: ptBR }));
+		} else {
+			state.delete("createdAt");
+		}
+
 		const search = state.toString();
 		const query = search ? `?${search}` : "";
 
@@ -57,10 +69,12 @@ export function UserTableFilters() {
 
 		state.delete("name");
 		state.delete("email");
+		state.delete("createdAt");
 
 		reset({
 			name: "",
 			email: "",
+			createdAt: new Date(),
 		});
 
 		const search = state.toString();
@@ -69,7 +83,11 @@ export function UserTableFilters() {
 	}
 
 	return (
-		<form className="flex gap-4 py-4" onSubmit={handleSubmit(handleFilter)}>
+		<form
+			className="flex gap-4 py-4"
+			onSubmit={handleSubmit(handleFilter)}
+			onChange={(e) => console.log(e.target)}
+		>
 			<Input
 				className="w-full"
 				placeholder="Nome do usuário"
@@ -81,8 +99,16 @@ export function UserTableFilters() {
 				placeholder="Email do usuário"
 				{...register("email")}
 			/>
-			
-			<DatePicker />
+
+			<Controller
+				control={control}
+				name="createdAt"
+				render={({ field: { onChange, value } }) => {
+					return (
+						<DatePicker date={value ? value : new Date()} setDate={onChange} />
+					);
+				}}
+			/>
 
 			<Button type="submit" variant="secondary" className="px-8">
 				Filtar

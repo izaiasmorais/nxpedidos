@@ -2,13 +2,19 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-	if (request.method !== "GET") {
-		return NextResponse.json({ error: "Invalid method" }, { status: 405 });
-	}
+	// if (request.method !== "GET") {
+	// 	return NextResponse.json({ error: "Invalid method" }, { status: 405 });
+	// }
 
-	const data = await prisma.user.findMany();
+	const url = new URL(request.url);
+	const searchParams = new URLSearchParams(url.search);
+	const name = searchParams.get("name");
+	const email = searchParams.get("email");
+	const createdAt = searchParams.get("createdAt");
 
-	return NextResponse.json(data);
+	// const data = await prisma.user.findMany();
+
+	return NextResponse.json({ name, email, createdAt });
 }
 
 export async function POST(request: Request) {

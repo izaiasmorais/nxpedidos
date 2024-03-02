@@ -12,9 +12,12 @@ import {
 } from "@/components/ui/popover";
 import { ptBR } from "date-fns/locale";
 
-export function DatePicker() {
-	const [date, setDate] = React.useState<Date>();
+interface DatePickerProps {
+	date: Date;
+	setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+}
 
+export function DatePicker({ date, setDate }: DatePickerProps) {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
@@ -42,7 +45,6 @@ export function DatePicker() {
 					onSelect={setDate}
 					defaultMonth={new Date()}
 					initialFocus
-					locale={ptBR}
 				/>
 			</PopoverContent>
 		</Popover>
