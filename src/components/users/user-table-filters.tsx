@@ -1,61 +1,53 @@
 "use client";
-import { Controller, useForm } from "react-hook-form";
-import { DatePicker } from "../ui/date-picker";
-import { Input } from "../ui/input";
-import { CreateUserModal } from "./user-create-modal";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../ui/button";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useState } from "react";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import { DatePicker } from "../ui/date-picker";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { z } from "zod";
 
 const userFilterSchema = z.object({
 	name: z.string().optional(),
 	email: z.string().optional(),
-	createdAt: z.date().optional(),
 });
 
 type UserFilterSchema = z.infer<typeof userFilterSchema>;
 
-export function UserTableFilters() {
+interface UserTableFiltersProps {
+	date: Date | undefined;
+	setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+}
+
+export function UserTableFilters({ date, setDate }: UserTableFiltersProps) {
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
 	const router = useRouter();
 
 	const name = searchParams.get("name");
 	const email = searchParams.get("email");
-	const createdAt = searchParams.get("createdAt");
 
-	const { register, handleSubmit, reset, control } = useForm<UserFilterSchema>({
+	const { register, handleSubmit, reset } = useForm<UserFilterSchema>({
 		resolver: zodResolver(userFilterSchema),
 		defaultValues: {
 			name: name ?? "",
 			email: email ?? "",
-			createdAt: new Date(createdAt ?? new Date()) ?? "",
 		},
 	});
 
-	function handleFilter({ name, email, createdAt }: UserFilterSchema) {
+	function handleFilter({ name, email }: UserFilterSchema) {
 		const state = new URLSearchParams(Array.from(searchParams.entries()));
 
 		if (name) {
-			state.set("name", name);
+			state.set("name", name.trim());
 		} else {
 			state.delete("name");
 		}
 
 		if (email) {
-			state.set("email", email);
+			state.set("email", email.trim());
 		} else {
 			state.delete("email");
-		}
-
-		if (createdAt) {
-			state.set("createdAt", format(createdAt, "yyyy-MM-dd", { locale: ptBR }));
-		} else {
-			state.delete("createdAt");
 		}
 
 		const search = state.toString();
@@ -66,7 +58,6 @@ export function UserTableFilters() {
 
 	function handleClearFilters() {
 		const state = new URLSearchParams(Array.from(searchParams.entries()));
-
 		state.delete("name");
 		state.delete("email");
 		state.delete("createdAt");
@@ -74,7 +65,6 @@ export function UserTableFilters() {
 		reset({
 			name: "",
 			email: "",
-			createdAt: new Date(),
 		});
 
 		const search = state.toString();
@@ -100,15 +90,7 @@ export function UserTableFilters() {
 				{...register("email")}
 			/>
 
-			<Controller
-				control={control}
-				name="createdAt"
-				render={({ field: { onChange, value } }) => {
-					return (
-						<DatePicker date={value ? value : new Date()} setDate={onChange} />
-					);
-				}}
-			/>
+			<DatePicker date={date} setDate={setDate} />
 
 			<Button type="submit" variant="secondary" className="px-8">
 				Filtar

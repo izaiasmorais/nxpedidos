@@ -25,6 +25,7 @@ export function CreateUserModal() {
 		register,
 		handleSubmit,
 		formState: { isSubmitting },
+		reset,
 	} = useForm<CreateUserBody>({
 		defaultValues: {
 			name: "",
@@ -38,6 +39,10 @@ export function CreateUserModal() {
 			queryClient.invalidateQueries({ queryKey: ["users"] });
 			toast.success("Usuário criado com sucesso!");
 			document.getElementById("closeDialog")?.click();
+			reset({
+				name: "",
+				email: "",
+			});
 		},
 		onError: () => toast.error("Erro ao criar usuário!"),
 	});

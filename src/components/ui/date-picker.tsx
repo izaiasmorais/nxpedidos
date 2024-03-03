@@ -13,7 +13,7 @@ import {
 import { ptBR } from "date-fns/locale";
 
 interface DatePickerProps {
-	date: Date;
+	date: Date | undefined;
 	setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
 }
 
@@ -45,6 +45,8 @@ export function DatePicker({ date, setDate }: DatePickerProps) {
 					onSelect={setDate}
 					defaultMonth={new Date()}
 					initialFocus
+					locale={ptBR}
+					lang="pt-BR"
 				/>
 			</PopoverContent>
 		</Popover>

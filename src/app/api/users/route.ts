@@ -1,20 +1,34 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import dayjs from "dayjs";
 
 export async function GET(request: Request) {
-	// if (request.method !== "GET") {
-	// 	return NextResponse.json({ error: "Invalid method" }, { status: 405 });
-	// }
-
-	const url = new URL(request.url);
-	const searchParams = new URLSearchParams(url.search);
+	const { searchParams } = new URL(request.url);
 	const name = searchParams.get("name");
 	const email = searchParams.get("email");
-	const createdAt = searchParams.get("createdAt");
+	const createdAt = searchParams.get("created_at");
 
-	// const data = await prisma.user.findMany();
+	const newDate = dayjs(createdAt)
+		.add(23, "hours")
+		.add(59, "minutes")
+		.add(59, "seconds")
+		.toDate();
 
-	return NextResponse.json({ name, email, createdAt });
+	const data = await prisma.user.findMany({
+		where: {
+			name: {
+				contains: name ?? undefined,
+			},
+			email: {
+				contains: email ?? undefined,
+			},
+			created_at: {
+				lte: newDate ?? undefined,
+			},
+		},
+	});
+
+	return NextResponse.json(data);
 }
 
 export async function POST(request: Request) {

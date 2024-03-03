@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
 import { CreateUserModal } from "@/components/users/user-create-modal";
 import { UserTable } from "@/components/users/user-table";
-import { UserTableFilters } from "@/components/users/user-table-filters";
 
 export default function Home() {
 	return (
@@ -19,7 +18,7 @@ export default function Home() {
 				</CardHeader>
 
 				<CardContent>
-					<UserTableFilters />
+
 					<UserTable />
 				</CardContent>
 			</Card>

@@ -12,20 +12,24 @@ import { useQuery } from "@tanstack/react-query";
 import { UserTableSkeleton } from "./user-table-skeleton";
 import { format } from "date-fns";
 import { useSearchParams } from "next/navigation";
+import { UserTableFilters } from "./user-table-filters";
+import { useState } from "react";
 
 export function UserTable() {
+	const [date, setDate] = useState<Date | undefined>(new Date());
 	const searchParams = useSearchParams();
 
 	const name = searchParams.get("name");
 	const email = searchParams.get("email");
 
 	const { data: result, isLoading: isLoadingUsers } = useQuery({
-		queryKey: ["users", name, email],
-		queryFn: getUsers,
+		queryKey: ["users", name, email, date],
+		queryFn: () => getUsers({ name, email, created_at: date }),
 	});
 
 	return (
 		<>
+			<UserTableFilters date={date} setDate={setDate} />
 			<Table>
 				<TableHeader className="bg-muted">
 					<TableRow>
@@ -37,7 +41,7 @@ export function UserTable() {
 				</TableHeader>
 
 				<TableBody>
-					{/* {result &&
+					{result &&
 						result.map((user) => {
 							return (
 								<TableRow key={user.id}>
@@ -49,7 +53,7 @@ export function UserTable() {
 									</TableCell>
 								</TableRow>
 							);
-						})} */}
+						})}
 
 					{isLoadingUsers && <UserTableSkeleton />}
 				</TableBody>
