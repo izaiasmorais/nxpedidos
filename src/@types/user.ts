@@ -1,5 +1,5 @@
 export interface User {
-	id: number;
+	id: string;
 	name: string;
 	email: string;
 	created_at: string;
@@ -18,4 +18,8 @@ export interface GetUsersQueryParams {
 export interface CreateUserBody {
 	name: string;
 	email: string;
+}
+
+export interface DeleteUserBody {
+	userId: string;
 }

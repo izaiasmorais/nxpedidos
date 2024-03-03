@@ -14,6 +14,8 @@ import { format } from "date-fns";
 import { useSearchParams } from "next/navigation";
 import { UserTableFilters } from "./user-table-filters";
 import { useState } from "react";
+import { EditUserModal } from "./user-edit-modal";
+import { UserDeleteDialog } from "./user-delete-modal";
 
 export function UserTable() {
 	const [date, setDate] = useState<Date | undefined>(new Date());
@@ -37,6 +39,8 @@ export function UserTable() {
 						<TableHead className="w-[230px]">Nome</TableHead>
 						<TableHead className="w-[230px]">Email</TableHead>
 						<TableHead className="w-[130px]">Criação</TableHead>
+						<TableHead></TableHead>
+						<TableHead></TableHead>
 					</TableRow>
 				</TableHeader>
 
@@ -50,6 +54,12 @@ export function UserTable() {
 									<TableCell>{user.email}</TableCell>
 									<TableCell>
 										{format(new Date(user.created_at), "dd/MM/yyyy")}
+									</TableCell>
+									<TableCell>
+										<EditUserModal />
+									</TableCell>
+									<TableCell>
+										<UserDeleteDialog userId={user.id} />
 									</TableCell>
 								</TableRow>
 							);

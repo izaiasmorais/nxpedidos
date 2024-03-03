@@ -5,8 +5,8 @@ import { UserTable } from "@/components/users/user-table";
 
 export default function Home() {
 	return (
-		<main className="h-screen w-full flex items-center justify-center">
-			<Card className="h-[700px]">
+		<main className="h-screen w-full flex items-center justify-center p-4">
+			<Card>
 				<CardHeader>
 					<div className="flex items-center justify-between w-full">
 						<CardTitle>Usuários</CardTitle>
@@ -18,7 +18,6 @@ export default function Home() {
 				</CardHeader>
 
 				<CardContent>
-
 					<UserTable />
 				</CardContent>
 			</Card>

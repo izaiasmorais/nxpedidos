@@ -1,8 +1,10 @@
 import { Skeleton } from "../ui/skeleton";
 import { TableRow, TableCell } from "../ui/table";
+import { UserDeleteDialog } from "./user-delete-modal";
+import { EditUserModal } from "./user-edit-modal";
 
 export function UserTableSkeleton() {
-	return Array.from({ length: 5 }).map((_, index) => {
+	return Array.from({ length: 10 }).map((_, index) => {
 		return (
 			<TableRow key={index}>
 				<TableCell>
@@ -16,6 +18,12 @@ export function UserTableSkeleton() {
 				</TableCell>
 				<TableCell>
 					<Skeleton className="h-5 w-[100px]" />
+				</TableCell>
+				<TableCell>
+					<EditUserModal />
+				</TableCell>
+				<TableCell>
+					<UserDeleteDialog  />
 				</TableCell>
 			</TableRow>
 		);

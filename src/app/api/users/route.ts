@@ -1,8 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import dayjs from "dayjs";
+import { CreateUserBody, DeleteUserBody } from "@/@types/user";
 
 export async function GET(request: Request) {
+	if (request.method !== "GET") {
+		return NextResponse.json({ error: "Invalid method" }, { status: 405 });
+	}
+
 	const { searchParams } = new URL(request.url);
 	const name = searchParams.get("name");
 	const email = searchParams.get("email");
@@ -36,12 +41,28 @@ export async function POST(request: Request) {
 		return NextResponse.json({ error: "Invalid method" }, { status: 405 });
 	}
 
-	const { name, email } = await request.json();
+	const { name, email }: CreateUserBody = await request.json();
 
 	const user = await prisma.user.create({
 		data: {
 			name,
 			email,
+		},
+	});
+
+	return NextResponse.json(user);
+}
+
+export async function DELETE(request: Request) {
+	if (request.method !== "DELETE") {
+		return NextResponse.json({ error: "Invalid method" }, { status: 405 });
+	}
+
+	const { userId } = await request.json();
+
+	const user = await prisma.user.delete({
+		where: {
+			id: userId,
 		},
 	});
 
