@@ -1,5 +1,5 @@
 {
-	"name": "route-handlers",
+	"name": "nxpedidos",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
@@ -12,6 +12,8 @@
 		"@hookform/resolvers": "^3.3.4",
 		"@prisma/client": "^5.10.2",
 		"@radix-ui/react-alert-dialog": "^1.0.5",
+		"@radix-ui/react-avatar": "^1.0.4",
+		"@radix-ui/react-collapsible": "^1.0.3",
 		"@radix-ui/react-dialog": "^1.0.5",
 		"@radix-ui/react-dropdown-menu": "^2.0.6",
 		"@radix-ui/react-icons": "^1.3.0",
@@ -28,6 +30,7 @@
 		"lucide-react": "^0.343.0",
 		"next": "14.1.0",
 		"next-themes": "^0.2.1",
+		"next13-progressbar": "^1.2.1",
 		"react": "^18",
 		"react-day-picker": "^8.10.0",
 		"react-dom": "^18",

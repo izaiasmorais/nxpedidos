@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { z } from "zod";
+import { Search, X } from "lucide-react";
 
 const userFilterSchema = z.object({
 	name: z.string().optional(),
@@ -74,7 +75,7 @@ export function UserTableFilters({ date, setDate }: UserTableFiltersProps) {
 
 	return (
 		<form
-			className="flex gap-4 py-4"
+			className="flex gap-4"
 			onSubmit={handleSubmit(handleFilter)}
 			onChange={(e) => console.log(e.target)}
 		>
@@ -92,17 +93,19 @@ export function UserTableFilters({ date, setDate }: UserTableFiltersProps) {
 
 			<DatePicker date={date} setDate={setDate} />
 
-			<Button type="submit" variant="secondary" className="px-8">
-				Filtar
+			<Button type="submit" variant="secondary" className="w-full">
+				<Search className="mr-2 h-4 w-4" />
+				Filtrar resultados
 			</Button>
 
 			<Button
 				type="button"
 				variant="outline"
-				className="px-8"
+				className="w-full"
 				onClick={() => handleClearFilters()}
 			>
-				Limpar
+				<X className="mr-2 h-4 w-4" />
+				Limpar filtros
 			</Button>
 		</form>
 	);

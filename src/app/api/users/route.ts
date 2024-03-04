@@ -68,3 +68,23 @@ export async function DELETE(request: Request) {
 
 	return NextResponse.json(user);
 }
+
+export async function PATCH(request: Request) {
+	if (request.method !== "PATCH") {
+		return NextResponse.json({ error: "Invalid method" }, { status: 405 });
+	}
+
+	const { userId, name, email } = await request.json();
+
+	const user = await prisma.user.update({
+		where: {
+			id: userId,
+		},
+		data: {
+			name,
+			email,
+		},
+	});
+
+	return NextResponse.json(user);
+}

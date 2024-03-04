@@ -32,42 +32,39 @@ export function UserTable() {
 	return (
 		<>
 			<UserTableFilters date={date} setDate={setDate} />
-			<Table>
-				<TableHeader className="bg-muted">
-					<TableRow>
-						<TableHead className="w-[400px]">Identificador</TableHead>
-						<TableHead className="w-[230px]">Nome</TableHead>
-						<TableHead className="w-[230px]">Email</TableHead>
-						<TableHead className="w-[130px]">Criação</TableHead>
-						<TableHead></TableHead>
-						<TableHead></TableHead>
-					</TableRow>
-				</TableHeader>
 
-				<TableBody>
-					{result &&
-						result.map((user) => {
-							return (
-								<TableRow key={user.id}>
-									<TableCell>{user.id}</TableCell>
-									<TableCell>{user.name}</TableCell>
-									<TableCell>{user.email}</TableCell>
-									<TableCell>
-										{format(new Date(user.created_at), "dd/MM/yyyy")}
-									</TableCell>
-									<TableCell>
-										<EditUserModal />
-									</TableCell>
-									<TableCell>
-										<UserDeleteDialog userId={user.id} />
-									</TableCell>
-								</TableRow>
-							);
-						})}
+			<div className="rounded-md border">
+				<Table>
+					<TableHeader className="bg-muted/50">
+						<TableRow>
+							<TableHead className="min-w-[400px]">Nome</TableHead>
+							<TableHead className="w-[400px]">Email</TableHead>
+							<TableHead className="w-[400px]">Criação</TableHead>
+							<TableHead className="w-[100px]"></TableHead>
+						</TableRow>
+					</TableHeader>
 
-					{isLoadingUsers && <UserTableSkeleton />}
-				</TableBody>
-			</Table>
+					<TableBody>
+						{result &&
+							result.map((user) => {
+								return (
+									<TableRow key={user.id}>
+										<TableCell>{user.name}</TableCell>
+										<TableCell>{user.email}</TableCell>
+										<TableCell>
+											{format(new Date(user.created_at), "dd/MM/yyyy")}
+										</TableCell>
+										<TableCell>
+											<EditUserModal />
+										</TableCell>
+									</TableRow>
+								);
+							})}
+
+						{isLoadingUsers && <UserTableSkeleton />}
+					</TableBody>
+				</Table>
+			</div>
 
 			{result && result.length === 0 && !isLoadingUsers && (
 				<div className="flex w-full items-center justify-center mt-20 text-muted-foreground">

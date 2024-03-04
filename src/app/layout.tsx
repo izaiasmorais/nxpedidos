@@ -7,7 +7,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Route Handlers",
+	title: "NXPedidos",
+	description: "NXPedidos - O seu sistema de pedidos online",
 };
 
 export default function RootLayout({
@@ -16,7 +17,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="pt-br">
+			<head>
+				<link rel="icon" href="/nxpedidos.png" sizes="any" />
+			</head>
+
 			<body className={inter.className}>
 				<Providers>{children}</Providers>
 			</body>
