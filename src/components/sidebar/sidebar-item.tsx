@@ -18,15 +18,15 @@ export function SidebarItem({
 }: SidebarItemProps) {
 	const pathname = usePathname();
 
-	const style = pathname.endsWith(href) ? "bg-muted" : "";
+	const style = pathname.endsWith(href)
+		? "bg-muted text-black"
+		: "text-zinc-500";
 
 	return (
 		<Link
 			href={!disabled ? href : ""}
 			className={`px-4 py-2 rounded-md font-medium flex justify-between items-center
-			 ${style} ${disabled && "cursor-not-allowed"} ${
-				!disabled && "hover:bg-muted"
-			}`}
+			 ${style} ${disabled && "cursor-not-allowed"} ${!disabled && "hover:bg-muted"}`}
 		>
 			<div className="flex gap-2 items-center">
 				{icon}

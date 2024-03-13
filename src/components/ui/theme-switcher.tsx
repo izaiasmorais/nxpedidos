@@ -8,14 +8,17 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "next-themes";
+import { Button } from "./button";
 
 export function ThemeSwitcher() {
 	const { setTheme } = useTheme();
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="border w-10 h-10 flex items-center justify-center rounded-md">
-				<Sun size={20} />
+			<DropdownMenuTrigger asChild>
+				<Button className="w-10 h-10 p-0" variant="outline">
+					<Sun size={20} />
+				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
 				<DropdownMenuItem
