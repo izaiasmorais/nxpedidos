@@ -13,20 +13,20 @@ export function OrderTableSkeleton() {
 					</Button>
 				</TableCell>
 
-				<TableCell className="min-w-[150px]">
-					<Skeleton className="h-5 w-[150px] bg-muted" />
+				<TableCell>
+					<Skeleton className="h-5 w-[120px] bg-muted" />
 				</TableCell>
 
-				<TableCell className="min-w-[100px] w-[300px]">
-					<Skeleton className="h-5 w-[150px] bg-muted" />
+				<TableCell>
+					<Skeleton className="h-5 w-[120px] bg-muted" />
 				</TableCell>
 
-				<TableCell className="min-w-[100px] w-[300px]">
-					<Skeleton className="h-5 w-[150px] bg-muted" />
+				<TableCell>
+					<Skeleton className="h-5 w-[120px] bg-muted" />
 				</TableCell>
 
-				<TableCell className="min-w-[100px] w-[300px]">
-					<Skeleton className="h-5 w-[150px] bg-muted" />
+				<TableCell>
+					<Skeleton className="h-5 w-[120px] bg-muted" />
 				</TableCell>
 			</TableRow>
 		);

@@ -39,10 +39,10 @@ export function OrderTable() {
 					<TableHeader className="bg-muted/50">
 						<TableRow>
 							<TableHead className="w-[75px]"></TableHead>
-							<TableHead className="min-w-[150px]">Número do pedido</TableHead>
-							<TableHead className="min-w-[100px] w-[300px]">Preço</TableHead>
-							<TableHead className="min-w-[100px] w-[300px]">Data</TableHead>
-							<TableHead className="min-w-[100px] w-[300px]">Status</TableHead>
+							<TableHead>Número do pedido</TableHead>
+							<TableHead>Preço</TableHead>
+							<TableHead>Data</TableHead>
+							<TableHead>Status</TableHead>
 						</TableRow>
 					</TableHeader>
 
@@ -57,14 +57,20 @@ export function OrderTable() {
 											</Button>
 										</TableCell>
 										<TableCell>
-											<strong>97337</strong>
-										</TableCell>
-										<TableCell>R$ 49,99</TableCell>
-										<TableCell>
-											{format(new Date(user.created_at), "dd/MM/yyyy")}
+											<div className="w-[120px]">97337</div>
 										</TableCell>
 										<TableCell>
-											<OrderStatus status="pending" />
+											<div className="w-[120px]">R$ 49,99</div>
+										</TableCell>
+										<TableCell>
+											<div className="w-[120px]">
+												{format(new Date(user.created_at), "dd/MM/yyyy")}
+											</div>
+										</TableCell>
+										<TableCell>
+											<div className="w-[120px]">
+												<OrderStatus status="pending" />
+											</div>
 										</TableCell>
 									</TableRow>
 								);

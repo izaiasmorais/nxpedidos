@@ -1,6 +1,6 @@
+import dayjs from "dayjs";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import dayjs from "dayjs";
 import { CreateUserBody, DeleteUserBody } from "@/@types/user";
 
 export async function GET(request: Request) {
@@ -58,7 +58,7 @@ export async function DELETE(request: Request) {
 		return NextResponse.json({ error: "Invalid method" }, { status: 405 });
 	}
 
-	const { userId } = await request.json();
+	const { userId }: DeleteUserBody = await request.json();
 
 	const user = await prisma.user.delete({
 		where: {

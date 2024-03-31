@@ -72,6 +72,7 @@ export function OrderTableFilters({ date, setDate }: OrderTableFiltersProps) {
 		state.delete("name");
 		state.delete("email");
 		state.delete("createdAt");
+		setDate(new Date());
 
 		reset({
 			name: "",
@@ -91,15 +92,11 @@ export function OrderTableFilters({ date, setDate }: OrderTableFiltersProps) {
 		>
 			<Input
 				className="w-full"
-				placeholder="Nome do usuário"
+				placeholder="Número do pedido"
 				{...register("name")}
 			/>
 
-			<Input
-				className="w-full"
-				placeholder="Email do usuário"
-				{...register("email")}
-			/>
+			<DatePicker date={date} setDate={setDate} />
 
 			<Controller
 				name="status"
@@ -128,8 +125,6 @@ export function OrderTableFilters({ date, setDate }: OrderTableFiltersProps) {
 					);
 				}}
 			/>
-
-			<DatePicker date={date} setDate={setDate} />
 
 			<Button type="submit" variant="secondary" className="w-full">
 				<Search className="mr-2 h-4 w-4" />
